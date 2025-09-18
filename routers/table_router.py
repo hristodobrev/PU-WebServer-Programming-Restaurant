@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from db import get_session
 from typing import Annotated
 from models.dtos import GetTableDTO, CreateTableDTO, UpdateTableDTO
-from services.tables_service import TableService
+from services.table_service import TableService
 
 router = APIRouter(prefix="/api/v1/table", tags=["Tables"])
 

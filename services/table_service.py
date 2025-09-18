@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from models.entities import Table
 from models.dtos import CreateTableDTO, GetTableDTO, UpdateTableDTO
-from models.mapper import map_create_table_dto_to_entity, map_entity_to_get_table_dto
+from models.mapper import map_create_table_dto_to_entity, map_entity_to_get_table_dto, map_update_table_dto_to_entity
 from fastapi import HTTPException
 
 class TableService:
@@ -20,7 +20,7 @@ class TableService:
     
     def update_table(self, table_id: int, table_dto: UpdateTableDTO) -> None:
         table = self._get_table_by_id(table_id)
-        table.number = table_dto.number
+        map_update_table_dto_to_entity(table, table_dto)
         self.db.commit()
             
     def delete_table(self, table_id: int) -> None:
