@@ -45,3 +45,20 @@ class OrderItem(Base):
     order = relationship("Order", back_populates="order_items")
     product = relationship("Product", back_populates="order_items")
 
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(String(50), unique=True, nullable=False)
+    hashed_password = Column(String(255), nullable=False)
+    role = Column(String(50), nullable=False, default='user')
+
+    tokens = relationship("Token", back_populates="user")
+
+class Token(Base):
+    __tablename__ = 'tokens'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    token = Column(String(255), unique=True, nullable=False)
+    token_type = Column(String(50))
+
+    user = relationship("User", back_populates="tokens")

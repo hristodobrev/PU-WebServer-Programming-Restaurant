@@ -32,6 +32,36 @@ class CreateOrderDTO(BaseModel):
 class GetOrderDTO(BaseModel):
     id: int
     table: GetTableDTO
+    products: list[GetProductDTO]
 
 class UpdateOrderDTO(BaseModel):
     table_id: int
+
+# OrderItems
+class CreateOrderItemDTO(BaseModel):
+    order_id: int
+    product_id: int
+    quantity: int
+
+class GetOrderItemDTO(BaseModel):
+    id: int
+    order: GetOrderDTO
+    product: GetProductDTO
+    quantity: int
+
+class UpdateOrderItemDTO(BaseModel):
+    order_id: int
+    product_id: int
+    quantity: int
+
+# Users
+class CreateUserDTO(BaseModel):
+    username: str
+    password: str
+    role: str = 'user'
+
+class GetUserDTO(BaseModel):
+    id: int
+    username: str
+    role: str
+    hashed_password: str
