@@ -26,8 +26,9 @@ def get_current_admin_user(token: Annotated[str, Depends(oauth2_scheme)], db: An
         raise HTTPException(status_code=401, detail="This action requires admin privileges")
     return admin_user
 
+
 @router.get("/", status_code=status.HTTP_200_OK)
-def get_tables(token: Annotated[str, Depends(oauth2_scheme)], service: Service) -> list[GetTableDTO]:
+def get_tables(current_user: Annotated[User, Depends(get_current_admin_user)], service: Service) -> list[GetTableDTO]:
     return service.get_all_tables()
 
 @router.post("/", status_code=status.HTTP_201_CREATED)

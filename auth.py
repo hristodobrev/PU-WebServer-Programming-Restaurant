@@ -1,5 +1,5 @@
-from passlib.context import CryptContext
-from jose import JWTError, jwt
+from pwdlib import PasswordHash
+from jose import jwt
 from datetime import datetime, timedelta
 
 SECRET_KEY = "6c9f48036ce072d39baa54776834a171"
@@ -7,7 +7,7 @@ SECRET_KEY = "6c9f48036ce072d39baa54776834a171"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = PasswordHash.recommended()
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
